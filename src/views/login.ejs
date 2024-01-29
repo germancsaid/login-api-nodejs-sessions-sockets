@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+</head>
+<body>
+    <h1>Iniciar Sesión</h1>
+    
+    <form id="loginForm">
+        <label for="username">Nombre de usuario:</label>
+        <input type="text" id="username" name="UserName" required>
+        <br>
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="Password" required>
+        <br>
+        <button type="button" onclick="login()">Iniciar Sesión</button>
+    </form>
+
+    <script>
+        function login() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            var formData = {
+                UserName: username,
+                Password: password
+            };
+
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Manejar la respuesta del servidor aquí
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
